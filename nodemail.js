@@ -10,19 +10,19 @@ app.post('/send', async (req, res) => {
   const { to, subject, text } = req.body;
 
   let transporter = nodemailer.createTransport({
-    service: 'gmail', // Choose your email service (Gmail, Outlook etc.)
+    service: 'gmail',
     auth: {
-      user: 'patchavijayasri12@gmail.com',       // Your email address
-      pass: 'gzyb vdgi dbhd gedg',             // Your email app password (See below!)
+      user: 'patchavijayasri12@gmail.com',    // Your email address
+      pass: 'gzyb vdgi dbhd gedg',            // Your Gmail "App Password", NOT your Gmail login password
     }
   });
 
   try {
     let info = await transporter.sendMail({
-      from: '"My Flutter App" <youraccount@gmail.com>', // sender address
-      to,                   // list of receivers, comma-separated
-      subject,              // Subject line
-      text                  // plain text body
+      from: '"My Flutter App" <patchavijayasri12@gmail.com>', // sender address
+      to,                    // list of recipients, comma-separated
+      subject,               // Subject line
+      text                   // Email body text
     });
     res.json({ message: 'Email sent', info });
   } catch (e) {
@@ -30,4 +30,7 @@ app.post('/send', async (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log('Server started on port 3000'));
+// For Railway and most cloud hosts, always listen on the port provided in env variables:
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log('Server started on port ' + PORT));
+
